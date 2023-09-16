@@ -13,7 +13,11 @@ func TestWallet(t *testing.T) {
 		t.Error("Error generating UUID")
 	}
 
-	wallet := domain.NewWallet(userId)
+	wallet, err := domain.NewWallet(userId)
+
+	if err != nil {
+		t.Error("Error creating wallet")
+	}
 
 	if wallet.WalletId == uuid.Nil {
 		t.Error("Wallet ID is nil")
