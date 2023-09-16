@@ -9,17 +9,17 @@ type Wallet struct {
 	Active       bool
 }
 
-func NewWallet(userId uuid.UUID) *Wallet {
+func NewWallet(userId uuid.UUID) (*Wallet, error) {
 	wallet := new(Wallet)
 	walletId, err := uuid.NewUUID()
 
 	if err != nil {
-		return wallet
+		return nil, err
 	}
 
 	wallet.WalletId = walletId
 	wallet.UserId = userId
 	wallet.Active = true
 
-	return wallet
+	return wallet, nil
 }
