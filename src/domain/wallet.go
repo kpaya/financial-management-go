@@ -1,6 +1,10 @@
 package domain
 
-import "github.com/google/uuid"
+import (
+	"errors"
+
+	"github.com/google/uuid"
+)
 
 type Wallet struct {
 	WalletId     uuid.UUID
@@ -9,17 +13,19 @@ type Wallet struct {
 	Active       bool
 }
 
-func NewWallet(userId uuid.UUID) (*Wallet, error) {
+func NewWallet(walletId, userId uuid.UUID, transactions []Transaction, active bool) (*Wallet, error) {
 	wallet := new(Wallet)
-	walletId, err := uuid.NewUUID()
-
-	if err != nil {
-		return nil, err
+	if _, err := uuid.Parse(walletId.String()); err != nil {
+		wallet.WalletId = uuid.New()
 	}
 
-	wallet.WalletId = walletId
+	if _, err := uuid.Parse(userId.String()); err != nil {
+		return nil, errors.New("User ID is nil")
+	}
+
 	wallet.UserId = userId
-	wallet.Active = true
+	wallet.Transactions = transactions
+	wallet.Active = active
 
 	return wallet, nil
 }
