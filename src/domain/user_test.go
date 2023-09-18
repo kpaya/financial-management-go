@@ -8,7 +8,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func TestUser(t *testing.T) {
+func TestUserDomin(t *testing.T) {
 	email, password := "test@test.com", "123456"
 
 	user, err := domain.NewUser(email, password)
@@ -16,7 +16,7 @@ func TestUser(t *testing.T) {
 		t.Errorf("Error creating user: %s", err)
 	}
 
-	if user.UserId == uuid.Nil {
+	if _, err := uuid.Parse(user.UserId.String()); err != nil {
 		t.Error("User ID is nil")
 	}
 
