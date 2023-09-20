@@ -25,6 +25,7 @@ func NewUser(email, password string) (*User, error) {
 
 	user.UserId = userID
 	user.Email = email
+	user.Active = true
 	passwordHash, err := EncryptPassword(password)
 
 	if err != nil {
