@@ -1,7 +1,9 @@
-package interfaces
+package repositoryInterface
 
-import transactionDto "github.com/kpaya/financial-management-go/src/dto/transaction"
+import (
+	"github.com/kpaya/financial-management-go/src/domain"
+)
 
-type TransactionRepository interface {
-	CreateNewTransactionInWallet(input *transactionDto.InputCreateNewTransactionInWallet) (*transactionDto.OutputCreateNewTransactionInWallet, error)
+type Transaction interface {
+	InsertTransaction(input *domain.Transaction) error
 }
