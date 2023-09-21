@@ -9,5 +9,6 @@ type Transaction interface {
 }
 
 type User interface {
-	InsertUser(input *domain.User) error
+	Insert(input *domain.User) error
+	Get(uuid string) (*domain.User, error)
 }
