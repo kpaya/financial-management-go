@@ -22,7 +22,7 @@ func (u *CreateNewUser) Execute(input *userDto.InputNewCreateUser) (*userDto.Out
 		return nil, err
 	}
 
-	err = u.Repository.InsertUser(user)
+	err = u.Repository.Insert(user)
 	if err != nil {
 		return nil, err
 	}
