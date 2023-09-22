@@ -13,3 +13,9 @@ type User interface {
 	GetById(uuid string) (*domain.User, error)
 	GetByEmail(email string) (*domain.User, error)
 }
+
+type Wallet interface {
+	Insert(input *domain.Wallet) error
+	GetById(uuid string) (*domain.Wallet, error)
+	GetByUserId(userId string) ([]*domain.Wallet, error)
+}
