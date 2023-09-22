@@ -25,10 +25,22 @@ func (r *UserRepository) Insert(input *domain.User) error {
 	return nil
 }
 
-func (r *UserRepository) Get(uuid string) (*domain.User, error) {
+func (r *UserRepository) GetById(uuid string) (*domain.User, error) {
 	var user domain.User
 
 	err := r.Db.QueryRow("SELECT id, email, password, active FROM user WHERE id = $1", uuid).Scan(&user.UserId, &user.Email, &user.Password, &user.Active)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func (r *UserRepository) GetByEmail(email string) (*domain.User, error) {
+	var user domain.User
+
+	err := r.Db.QueryRow("SELECT id, email, password, active FROM user WHERE email = $1", email).Scan(&user.UserId, &user.Email, &user.Password, &user.Active)
 
 	if err != nil {
 		return nil, err

@@ -10,5 +10,6 @@ type Transaction interface {
 
 type User interface {
 	Insert(input *domain.User) error
-	Get(uuid string) (*domain.User, error)
+	GetById(uuid string) (*domain.User, error)
+	GetByEmail(email string) (*domain.User, error)
 }
