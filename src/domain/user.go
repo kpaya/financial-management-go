@@ -18,10 +18,7 @@ type User struct {
 func NewUser(email, password string) (*User, error) {
 	user := new(User)
 
-	userID, err := uuid.NewUUID()
-	if err != nil {
-		return nil, err
-	}
+	userID := uuid.New()
 
 	user.UserId = userID
 	user.Email = email
