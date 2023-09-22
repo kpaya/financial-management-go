@@ -11,6 +11,10 @@ type OutputNewCreateUser struct {
 	UserId uuid.UUID `json:"user_id"`
 }
 
-type InputGetUserById struct {
+type InputGetById struct {
 	UserId uuid.UUID `json:"user_id"`
+}
+
+type InputGetByEmail struct {
+	Email string `json:"email"`
 }
