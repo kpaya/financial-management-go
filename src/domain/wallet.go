@@ -15,8 +15,12 @@ type Wallet struct {
 
 func NewWallet(walletId, userId uuid.UUID, transactions []Transaction, active bool) (*Wallet, error) {
 	wallet := new(Wallet)
-	if _, err := uuid.Parse(walletId.String()); err != nil {
+	if walletId == uuid.Nil {
 		wallet.WalletId = uuid.New()
+	} else {
+		if _, err := uuid.Parse(walletId.String()); err != nil {
+			wallet.WalletId = uuid.New()
+		}
 	}
 
 	if _, err := uuid.Parse(userId.String()); err != nil {
