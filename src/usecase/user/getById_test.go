@@ -12,14 +12,17 @@ import (
 	userDto "github.com/kpaya/financial-management-go/src/dto/user"
 	userRepository "github.com/kpaya/financial-management-go/src/repository/user"
 	userUseCase "github.com/kpaya/financial-management-go/src/usecase/user"
+	_ "github.com/mattn/go-sqlite3"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func TestGetUserById(t *testing.T) {
+func TestGetById(t *testing.T) {
 	db, err := sql.Open("sqlite3", "../../../database_test.db")
 	if err != nil {
 		t.Errorf("Error opening database: %q\n", err)
 	}
+
+	defer db.Close()
 
 	_, err = db.Exec("CREATE TABLE IF NOT EXISTS user (id TEXT PRIMARY KEY, email TEXT, password TEXT, active BOOLEAN)")
 	if err != nil {
@@ -27,7 +30,7 @@ func TestGetUserById(t *testing.T) {
 	}
 
 	email := fmt.Sprintf("%s@gmail.com", strconv.FormatInt(rand.Int63n(100000000), 10))
-	password := "123456"
+	password := strconv.FormatInt(rand.Int63n(100000000), 10)
 
 	repository := userRepository.NewUserRepository(db)
 
@@ -60,13 +63,13 @@ func TestGetUserById(t *testing.T) {
 		userId = output.UserId
 	})
 
-	usecase, err := userUseCase.NewGetUserById(repository)
+	usecase, err := userUseCase.NewGetById(repository)
 
 	if err != nil {
 		t.Errorf("Error to create usecase %q\n", err)
 	}
 
-	user, err := usecase.Execute(&userDto.InputGetUserById{UserId: userId})
+	user, err := usecase.Execute(&userDto.InputGetById{UserId: userId})
 
 	switch {
 	case err != nil:

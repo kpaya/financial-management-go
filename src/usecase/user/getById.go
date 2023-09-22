@@ -6,18 +6,18 @@ import (
 	repositoryInterface "github.com/kpaya/financial-management-go/src/repository"
 )
 
-type GetUserById struct {
+type GetById struct {
 	Repository repositoryInterface.User
 }
 
-func NewGetUserById(repository repositoryInterface.User) (*GetUserById, error) {
-	return &GetUserById{
+func NewGetById(repository repositoryInterface.User) (*GetById, error) {
+	return &GetById{
 		Repository: repository,
 	}, nil
 }
 
-func (g *GetUserById) Execute(input *userDto.InputGetUserById) (*domain.User, error) {
-	user, err := g.Repository.Get(input.UserId.String())
+func (g *GetById) Execute(input *userDto.InputGetById) (*domain.User, error) {
+	user, err := g.Repository.GetById(input.UserId.String())
 	if err != nil {
 		return nil, err
 	}
