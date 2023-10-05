@@ -9,3 +9,7 @@ type InputNewCreateWallet struct {
 type OutputNewCreateWallet struct {
 	WalletId uuid.UUID
 }
+
+type InputGetById struct {
+	WalletId uuid.UUID
+}
